@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="MaskSense: Confronting the Visual Exploration Trap in Masked Image Generation">
+  <meta name="keywords" content="MaskSense, Masked Generative Models, Reinforcement Learning, GRPO, Text-to-Image">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MaskSense: Confronting the Visual Exploration Trap in Masked Image Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./main.css">
+
+  <style>
+    h2 { text-align: center; }
+    p { text-align: justify; }
+    .hero-title { font-size: 2.2rem; font-weight: 700; line-height: 1.25; }
+    .publication-links .button { margin: 0.25rem; }
+    .planned-btn {
+      cursor: default;
+      opacity: 0.85;
+    }
+    .figure-block {
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .figure-block img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .caption {
+      margin-top: 0.75rem;
+      font-size: 0.98rem;
+      color: #363636;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">More Research</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://yawen-shao.github.io/GREAT/">GREAT</a>
+          <a class="navbar-item" href="https://github.com/yawen-shao/PEBench">PEBench</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title hero-title">
+            MaskSense: Confronting the Visual Exploration Trap<br>in Masked Image Generation
+          </h1>
+          <div class="is-size-4 publication-authors" style="margin-top: 0.75rem;">
+            <span class="author-block">Yawen Shao<sup>1,2</sup>,</span>
+            <span class="author-block">Jie Xiao<sup>2</sup>,</span>
+            <span class="author-block">Kai Zhu<sup>2</sup>,</span>
+            <span class="author-block">Yu Liu<sup>2</sup>,</span>
+            <span class="author-block">Hongchen Luo<sup>3</sup>,</span><br>
+            <span class="author-block">Xueyang Fu<sup>1</sup>,</span>
+            <span class="author-block">Yang Cao<sup>1</sup>,</span>
+            <span class="author-block">Wei Zhai<sup>1</sup>,</span>
+            <span class="author-block">Zheng-Jun Zha<sup>1</sup></span>
+          </div>
+          <div class="is-size-5 publication-authors" style="margin-top: 0.75rem;">
+            <span class="author-block"><sup>1</sup>University of Science and Technology of China</span><br>
+            <span class="author-block"><sup>2</sup>Tongyi Lab, Alibaba Group</span>
+            <span class="author-block"><sup>3</sup>Northeastern University</span>
+          </div>
+          <div class="is-size-4" style="margin-top: 1rem; font-weight: 600;">NeurIPS 2026</div>
+
+          <div class="column has-text-centered" style="margin-top: 1rem;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark planned-btn" title="Coming soon">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>Paper (Planned)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark planned-btn" title="Coming soon">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (Planned)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Reinforcement learning (RL) has shown strong potential for aligning generative models with human intent, but adapting RL to masked generative models (MGMs) remains largely underexplored.
+            Existing approaches that directly adapt Group Relative Policy Optimization (GRPO) to MGMs leave a foundational conflict unaddressed: MGMs' exploitative decoding nature is inherently at odds with the exploratory diversity that GRPO presupposes.
+            In this work, we reveal a structural decoding bias termed the <b>visual exploration trap</b>: confidence-based sampling trades the exploration of diverse subject realizations for the greedy resolution of low-uncertainty background regions, causing premature collapse of the generative exploration space and starving GRPO of the rollout diversity it depends on.
+            To this end, we propose <b>MaskSense</b>, a novel RL framework for MGMs that confronts the visual exploration trap at both the sampling and optimization stages.
+            Specifically, we introduce a semantic anchored routing sampling mechanism that leverages semantic priors to preserve high-entropy subject token exploration while amplifying intra-group reward variance through exploratory-exploitative routing to yield more discriminative advantage estimates.
+            Furthermore, we design a global entropy transition anchoring strategy to identify the most consequential decoding steps and concentrate gradient updates on them.
+            Extensive experiments on multiple text-to-image benchmarks demonstrate that MaskSense substantially improves upon the base model, with GenEval accuracy improving from 54% to 86% and HPS from 28.89 to 36.39, achieving state-of-the-art performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Motivation</h2>
+    <div class="figure-block">
+      <img src="./static/images/motivation.png" alt="Motivation of MaskSense">
+      <p class="caption">
+        <b>Motivation.</b> (a) MaskGIT keeps subject tokens masked while committing background regions early, whereas SA-Sampler resolves subject regions earlier via semantic anchoring.
+        (b) SA-Sampler consistently discovers higher-reward trajectories through broader generative exploration.
+        (c) SA-Sampler maintains higher subject-token fixation ratios and elevated entropy, effectively escaping the visual exploration trap.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method Overview</h2>
+    <div class="figure-block">
+      <img src="./static/images/method.png" alt="Overview of MaskSense">
+      <p class="caption">
+        <b>Overview of MaskSense.</b> MaskSense comprises two core modules that jointly address the visual exploration trap.
+        At the sampling stage, SARS promotes subject-token exploration via semantic anchored decoding and sharpens advantage estimation through dual-branch rollout routing.
+        At the optimization stage, GETA concentrates GRPO updates on critical decoding steps anchored by entropy transitions, with random remasking applied to ensure optimization diversity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Qualitative Results</h2>
+    <div class="figure-block">
+      <img src="./static/images/result.png" alt="Qualitative comparison">
+      <p class="caption">
+        <b>Qualitative Comparison.</b> MaskSense achieves superior visual quality with richer fine-grained details and more faithful satisfaction of object-level constraints across both tasks.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Training Dynamics</h2>
+    <div class="columns is-centered is-vcentered">
+      <div class="column">
+        <img src="./static/images/geneval.png" alt="Compositional image generation training dynamics">
+        <p class="caption has-text-centered"><b>(a)</b> Compositional Image Generation</p>
+      </div>
+      <div class="column">
+        <img src="./static/images/hps.png" alt="Human preference alignment training dynamics">
+        <p class="caption has-text-centered"><b>(b)</b> Human Preference Alignment</p>
+      </div>
+    </div>
+    <p class="caption">
+      <b>Comparison of Training Dynamics Curves.</b> MaskSense yields stronger and more stable improvements than directly adapting GRPO to masked generative models across compositional generation and human preference alignment.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Entropy Anchoring</h2>
+    <div class="figure-block">
+      <img src="./static/images/entropy.png" alt="Anchored timesteps visualization">
+      <p class="caption">
+        <b>Anchored Timesteps of Diverse Prompts.</b> (a) Global entropy and absolute entropy difference between consecutive timesteps.
+        (b) Visualization of the generation process across timesteps, where GETA concentrates optimization on the most consequential decoding steps.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{MaskSense,
+  title={MaskSense: Confronting the Visual Exploration Trap in Masked Image Generation},
+  author={Yawen Shao and Jie Xiao and Kai Zhu and Yu Liu and Hongchen Luo and Xueyang Fu and Yang Cao and Wei Zhai and Zheng-Jun Zha},
+  booktitle={NeurIPS},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        This page was built with a template adapted from
+        <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+        and
+        <a href="https://yawen-shao.github.io/GREAT/">GREAT</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
