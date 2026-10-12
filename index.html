@@ -19,6 +19,36 @@
   <style>
     h2 { text-align: center; }
     p { text-align: justify; }
+    .section {
+      padding: 1.5rem 1.5rem;
+    }
+    .paper-section {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+    .paper-section .title {
+      margin-bottom: 1rem;
+    }
+    .paper-figure {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 0.8rem;
+    }
+    .paper-figure.medium {
+      max-width: 920px;
+    }
+    .paper-figure.narrow {
+      max-width: 780px;
+    }
+    .result-stack > * + * {
+      margin-top: 1rem;
+    }
+    .figure-caption {
+      margin: 0.5rem auto 0;
+      max-width: 1000px;
+      line-height: 1.5;
+    }
     .planned-link {
       pointer-events: none;
       cursor: default;
@@ -157,15 +187,14 @@
     </div>
   </section>
 
-  <br><br>
-  <h2 class="title is-3">Motivation</h2>
-  <section class="section">
+  <section class="section paper-section">
     <div class="container is-max-desktop">
+      <h2 class="title is-3">Motivation</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
-          <img src="./static/images/motivation.png" alt="Motivation" width="100%"/>
+          <img class="paper-figure medium" src="./static/images/motivation.png" alt="Motivation"/>
           <div class="content has-text-justified">
-            <p>
+            <p class="figure-caption">
               <b>Motivation.</b> (a) MaskGIT keeps subject tokens masked while committing background regions early, whereas SA-Sampler resolves subject regions earlier via semantic anchoring.
               (b) SA-Sampler consistently discovers higher-reward trajectories through broader generative exploration.
               (c) SA-Sampler maintains higher subject-token fixation ratios and elevated entropy, effectively escaping the visual exploration trap.
@@ -176,15 +205,14 @@
     </div>
   </section>
 
-  <br><br>
-  <h2 class="title is-3">Method Overview</h2>
-  <section class="section">
+  <section class="section paper-section">
     <div class="container is-max-desktop">
+      <h2 class="title is-3">Method Overview</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-full">
-          <img src="./static/images/method.png" alt="Method Overview" width="100%"/>
+          <img class="paper-figure narrow" src="./static/images/method.png" alt="Method Overview"/>
           <div class="content has-text-justified">
-            <p>
+            <p class="figure-caption">
               <b>Overview of MaskSense.</b> MaskSense comprises two core modules that jointly address the visual exploration trap.
               At the sampling stage, SARS promotes subject-token exploration via semantic anchored decoding and sharpens advantage estimation through dual-branch rollout routing.
               At the optimization stage, GETA concentrates GRPO updates on critical decoding steps anchored by entropy transitions, with random remasking applied to ensure optimization diversity.
@@ -195,58 +223,48 @@
     </div>
   </section>
 
-  <br><br>
-  <h2 class="title is-3">Qualitative Results</h2>
-  <section class="section">
+  <section class="section paper-section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <img src="./static/images/result.png" alt="Qualitative Results" width="100%"/>
-          <div class="content has-text-justified">
-            <p>
-              <b>Qualitative Comparison.</b> MaskSense achieves superior visual quality with richer fine-grained details and more faithful satisfaction of object-level constraints across both tasks.
-            </p>
-          </div>
+      <h2 class="title is-3">Main Results</h2>
+      <div class="result-stack">
+        <img class="paper-figure medium" src="./static/images/Tab1.png" alt="Main quantitative results"/>
+        <img class="paper-figure" src="./static/images/Tab2.3.png" alt="Additional quantitative results"/>
+        <img class="paper-figure" src="./static/images/Training Dynamics Curves.png" alt="Training Dynamics Curves"/>
+        <div class="content has-text-justified">
+          <p class="figure-caption">
+            <b>Comparison of Training Dynamics Curves.</b> Fig. (a) to (c) refer to the tasks of compositional image generation, human preference alignment, and multi-reward optimization, respectively.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <br><br>
-  <h2 class="title is-3">Training Dynamics</h2>
-  <section class="section">
+  <section class="section paper-section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered is-vcentered">
-        <div class="column">
-          <img src="./static/images/geneval.png" alt="Compositional Image Generation" width="100%"/>
-          <p class="has-text-centered"><b>(a)</b> Compositional Image Generation</p>
+      <h2 class="title is-3">Qualitative Comparison</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <img class="paper-figure medium" src="./static/images/result.png" alt="Qualitative Comparison"/>
         </div>
-        <div class="column">
-          <img src="./static/images/hps.png" alt="Human Preference Alignment" width="100%"/>
-          <p class="has-text-centered"><b>(b)</b> Human Preference Alignment</p>
-        </div>
-      </div>
-      <div class="content has-text-justified">
-        <p>
-          <b>Comparison of Training Dynamics Curves.</b> MaskSense yields stronger and more stable improvements than directly adapting GRPO to masked generative models across compositional generation and human preference alignment.
-        </p>
       </div>
     </div>
   </section>
 
-  <br><br>
-  <h2 class="title is-3">Entropy Anchoring</h2>
-  <section class="section">
+  <section class="section paper-section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <img src="./static/images/entropy.png" alt="Entropy Anchoring" width="100%"/>
-          <div class="content has-text-justified">
-            <p>
-              <b>Anchored Timesteps of Diverse Prompts.</b> (a) Global entropy and absolute entropy difference between consecutive timesteps.
-              (b) Visualization of the generation process across timesteps, where GETA concentrates optimization on the most consequential decoding steps.
-            </p>
-          </div>
+      <h2 class="title is-3">Analysis</h2>
+      <div class="result-stack">
+        <img class="paper-figure" src="./static/images/Ablation Analysis on Key Strategy Choices.png" alt="Ablation Analysis on Key Strategy Choices"/>
+        <div class="content has-text-justified">
+          <p class="figure-caption">
+            <b>Ablation Analysis on Key Strategy Choices.</b> (a) SARS effectively balances exploration and exploitation, outperforming single-branch sampling strategies. (b) GETA anchors critical decision steps, enabling more principled policy optimization than heuristic alternatives. (c) Random remasking diversifies anchor states, producing more stable optimization.
+          </p>
+        </div>
+        <img class="paper-figure" src="./static/images/entropy.png" alt="Anchored Timesteps of Diverse Prompts"/>
+        <div class="content has-text-justified">
+          <p class="figure-caption">
+            <b>Anchored Timesteps of Diverse Prompts.</b> (a) Global entropy and absolute entropy difference between consecutive timesteps. (b) Visualization of generation process across timesteps.
+          </p>
         </div>
       </div>
     </div>
